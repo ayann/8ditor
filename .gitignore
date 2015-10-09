@@ -1,0 +1,19 @@
+/node_modules
+npm-debug.log
+.DS_Store
+/*.env
+
+# Compiled binary addons (http://nodejs.org/api/addons.html)
+build/Release
+
+# Debug log from npm
+npm-debug.log
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
