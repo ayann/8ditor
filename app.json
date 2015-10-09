@@ -1,6 +1,6 @@
 {
-  "name": "Node.js Getting Started",
-  "description": "A barebones Node.js app using Express 4",
+  "name": "8ditor",
+  "description": "A real time colaborate code editor",
   "repository": "http://git.insta.fr/y.niampa/8ditor.git",
   "logo": "http://node-js-sample.herokuapp.com/node.svg",
   "keywords": ["node", "express", "static"],
