@@ -7,5 +7,5 @@ jQuery(document).ready(function($) {
       $(this).text('keyboard_arrow_up').data('click', 'show');
       $(this).closest('.module').find('.discussion').slideDown();
     }
-  });
-});
+  })
+})

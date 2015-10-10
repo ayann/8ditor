@@ -1,8 +1,3 @@
-@import url(http://weloveiconfonts.com/api/?family=typicons)
-
-[class*="typicons-"]:before
-  font-family: 'Typicons', sans-serif
-
 .module
   width: 300px
   margin: 20px auto
@@ -11,7 +6,7 @@
   bottom: 0
 
 .top-bar
-  background: #666
+  // background: #666
   color: white
   padding: 0.5rem
   position: relative
@@ -48,23 +43,17 @@
 
 .discussion
   list-style: none
-  background: #e5e5e5
   margin: 0
   padding: 0 0 50px 0
-  // finality
   li
     padding: 0.5rem
     overflow: hidden
     display: flex
   .avatar
     width: 40px
-    // stronger than %
-    // could set height, but gonna bottom-align instead
     position: relative
-    // for triangle
     img
       display: block
-      // triangle position
       width: 100%
 
 .other
@@ -86,7 +75,7 @@
   .messages
     order: 1
     border-bottom-right-radius: 0
-    // weird shadow fix
+
   .avatar
     order: 2
     &:after
@@ -100,7 +89,6 @@
       border-right-color: transparent
       border-top-color: transparent
       box-shadow: 1px 1px 2px rgba(black, 0.2)
-      // not quite perfect but close
 
 .messages
   background: white
@@ -113,6 +101,30 @@
   time
     font-size: 0.7rem
     color: #ccc
+
+#messages_container
+  .discussion
+    height: 340px
+    min-height: 340px
+    overflow-y: scroll
+
+#text_field
+  textarea
+    padding: 10px
+    width: calc(100% - 20px)
+    max-height: 45px
+    overflow: scroll
+  textarea::-webkit-input-placeholder
+   color: black
+
+  textarea:-moz-placeholder
+   color: black
+
+  textarea::-moz-placeholder
+   color: black
+
+  textarea:-ms-input-placeholder
+   color: black
 
 @keyframes pulse
   from

@@ -10,7 +10,6 @@
   bottom: 0; }
 
 .top-bar {
-  background: #666;
   color: white;
   padding: 0.5rem;
   position: relative;
@@ -45,7 +44,6 @@
 
 .discussion {
   list-style: none;
-  background: #e5e5e5;
   margin: 0;
   padding: 0 0 50px 0; }
   .discussion li {
@@ -101,6 +99,29 @@
   .messages time {
     font-size: 0.7rem;
     color: #ccc; }
+
+#messages_container .discussion {
+  height: 340px;
+  min-height: 340px;
+  overflow-y: scroll; }
+
+#text_field textarea {
+  padding: 10px;
+  width: calc(100% - 20px);
+  max-height: 45px;
+  overflow: scroll; }
+
+#text_field textarea::-webkit-input-placeholder {
+  color: black; }
+
+#text_field textarea:-moz-placeholder {
+  color: black; }
+
+#text_field textarea::-moz-placeholder {
+  color: black; }
+
+#text_field textarea:-ms-input-placeholder {
+  color: black; }
 
 @keyframes pulse {
   from {
