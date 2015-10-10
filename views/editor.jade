@@ -1,6 +1,10 @@
 extends layout
+block append head
+  link(rel='stylesheet', href='/stylesheets/chat.css')
+
 block append bottom
   script(type='text/javascript', src='/javascripts/ace/src-min-noconflict/ace.js', charset="utf-8")
+  script(type='text/javascript', src='/javascripts/chat.js', charset="utf-8")
   script.
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/solarized_dark");
@@ -12,11 +16,4 @@ block content
   div.row
     section#editor.z-depth-3.col.s12.m9
     section#chat.col.s12.m3.right
-      section.module
-        header.top-bar
-          h1 Hangouts
-          ol.conversation
-            li
-              img.avatar(src="", alt="")
-              .message
-                p Talkie talk talk
+      include chat_box
