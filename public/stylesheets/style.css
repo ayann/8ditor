@@ -1,9 +1,11 @@
 html.session {
   height: 100%; }
 
-body {
+body.bi {
   background-image: url("/images/3.jpg");
-  background-size: cover;
+  background-size: cover; }
+
+body {
   height: 100%; }
   body div.overlay {
     width: 100%;
@@ -14,6 +16,11 @@ body {
     background-color: rgba(255, 255, 255, 0.6); }
   body .row_form_container {
     margin-bottom: 0; }
+  body #editor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%; }
   body #session_form {
     float: none;
     display: inline-block;
