@@ -1,7 +1,15 @@
 doctype html
-html
+html(lang='FR', class= kclass ? kclass.html : null)
   head
     title= title
+    meta(charset="UTF-8")
+    link(rel="stylesheet", href="http://fonts.googleapis.com/icon?family=Material+Icons")
+    link(rel="stylesheet", href="/stylesheets/materialize.css", media="screen,projection")
     link(rel='stylesheet', href='/stylesheets/style.css')
-  body
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+  body(class= kclass ? kclass.body : null)
     block content
+    
+    //- Import jQuery before materialize.js
+    script(type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js")
+    script(type="text/javascript" src="/javascripts/materialize.min.js")
