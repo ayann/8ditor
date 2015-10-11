@@ -2,7 +2,7 @@ jQuery(document).ready(function($) {
   var n = Math.floor(Math.random() * 10) + 1;
   document.img_url = "http://lorempixel.com/600/600/people/"+n
 
-  var socket = io.connect('http://localhost:3000');
+  var socket = io.connect(window.location.origin);
 
   socket.on('connect', function(data) {
     socket.emit('join', 'Hello World from client');
