@@ -7,7 +7,7 @@ router.route('/')
   .get(function(req, res, next) {
     session = req.session;
     kclass = { html: 'session', body: 'bi valign-wrapper center-align' }
-    res.render('index', { title: '8ditor | Connexion', kclass: kclass });
+    res.render('home/index', { title: '8ditor | Connexion', kclass: kclass });
   })
 
   .post(function(req, res, next) {
@@ -22,9 +22,9 @@ router.get('/editor', function(req, res, next) {
   kclass = null;
   pseudo = req.session.pseudo;
   if (pseudo) {
-    // req.flash('error', 'Merci de vous authentifier!')
-    res.render('editor', { title: '8ditor | Editor' });
+    res.render('editor/index', { title: '8ditor | Editor' });
   }else{
+    req.flash('error', 'Merci de vous authentifier!');
     res.redirect('/');
   }
 });
