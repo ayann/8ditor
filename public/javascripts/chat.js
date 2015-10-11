@@ -22,7 +22,7 @@ jQuery(document).ready(function($) {
       $(this).text('keyboard_arrow_up').data('click', 'hide').
       closest('.module').find('#messages_container').slideUp();
     } else {
-      $(this).text('keyboard_arrow_up').data('click', 'show').
+      $(this).text('keyboard_arrow_down').data('click', 'show').
       closest('.module').find('#messages_container').slideDown();
     }
   })
@@ -45,6 +45,7 @@ jQuery(document).ready(function($) {
     var content = simpleFormat(data.message);
     var img = $('<img />').attr('src', data.img);
     var avatar = $('<div></div>').addClass('avatar').append(img);
+    var dt = $('<time></time>').attr('datetime', '2009-11-13T20:14').text('17 mins');
     var msg = $('<div></div>').addClass('messages').append(content);
 
     li.append(avatar).append(msg)

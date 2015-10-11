@@ -1,29 +1,14 @@
 div.row.valign.row_form_container.animated.bounceInUp
-  div#session_form
-    div.row
-      div.col.s12
-        div.center-align
-          form(action="", method='post')
-            .row
-              div(class="input-field col s12")
-                input.validate#user_email(type="email", name="email", required)
-                label(for="user_email", data-error="Invalide", data-success="Valide") Email
+  .col.s12
+    div#session_form
+      form(action="", method='post')
+        .row
+          div(class="input-field col s12")
+            input.validate#user_pseudo(type="text", name="pseudo", required)
+            label(for="user_pseudo", data-error="Invalide", data-success="Valide") Pseudo
 
-            .row
-              div(class="input-field col s12")
-                input.validate#user_password(type="password", name="password", pattern='.{8,}', title='8 caractères minimum', required, autocomplete='off')
-                label(for="user_password", data-error="Invalide", data-success="Valide") Mot de passe
-
-            .row
-              div(class="input-field col s6")
-                p
-                  input#user_remember_me(type="checkbox", name='remember_me')
-                  label.blue-grey-text(for="user_remember_me") Se souvenir de moi
-                br
-                p
-                  a.blue-grey-text(href="/") Mot de passe oublié ?
-            
-              div(class="input-field col s6")
-                button(class="btn-large btn-flat waves-effect waves-light white-text blue-grey lighten-1" type="submit" name="commit")
-                  | Se connecter
-                  i.material-icons.right send
+        .row
+          div(class="input-field col s12")
+            button(class="btn-large btn-flat waves-effect waves-light white-text blue-grey lighten-1" type="submit" name="commit")
+              | Se connecter
+              i.material-icons.right send

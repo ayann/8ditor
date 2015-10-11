@@ -3,7 +3,8 @@
   margin: 20px auto;
   margin-bottom: 0;
   position: fixed;
-  bottom: 0; }
+  bottom: 0;
+  right: 0; }
 
 .top-bar {
   color: white;
@@ -96,28 +97,25 @@
     font-size: 0.7rem;
     color: #ccc; }
 
-#messages_container .discussion {
-  height: 340px;
-  min-height: 340px;
-  overflow-y: scroll; }
-
-#messages_container #text_field textarea {
-  padding: 10px;
-  width: calc(100% - 20px);
-  max-height: 45px;
-  overflow: scroll; }
-
-#messages_container #text_field textarea::-webkit-input-placeholder {
-  color: black; }
-
-#messages_container #text_field textarea:-moz-placeholder {
-  color: black; }
-
-#messages_container #text_field textarea::-moz-placeholder {
-  color: black; }
-
-#messages_container #text_field textarea:-ms-input-placeholder {
-  color: black; }
+#messages_container {
+  display: none; }
+  #messages_container .discussion {
+    height: 300px;
+    min-height: 300px;
+    overflow-y: scroll; }
+  #messages_container #text_field textarea {
+    padding: 10px;
+    width: calc(100% - 20px);
+    max-height: 45px;
+    overflow: scroll; }
+  #messages_container #text_field textarea::-webkit-input-placeholder {
+    color: black; }
+  #messages_container #text_field textarea:-moz-placeholder {
+    color: black; }
+  #messages_container #text_field textarea::-moz-placeholder {
+    color: black; }
+  #messages_container #text_field textarea:-ms-input-placeholder {
+    color: black; }
 
 @keyframes pulse {
   from {
