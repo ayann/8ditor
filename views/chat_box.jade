@@ -2,34 +2,20 @@ section.module.z-depth-3
   header.top-bar.blue-grey
     .left
       i.tiny.material-icons question_answer
-      h1  Messagerie
+      h1#user_name  Messagerie
     .right
       i#hide_chat.tiny.bold.material-icons(data-click='show') keyboard_arrow_down
   section#messages_container
     ol.discussion.grey.lighten-2
-      li.other
-        .avatar
-          img(src='http://lorempixel.com/400/600/people/1')
-        .messages
-          p
-            | yeah, they do early flights cause they connect with big airports.  they wanna get u to your connection
-          time(datetime='2009-11-13T20:00') Timothy • 51 min
-      li.self
-        .avatar
-          img(src='http://lorempixel.com/600/600/people/2')
-        .messages
-          p That makes sense.
-          p It's a pretty small airport.
-          time(datetime='2009-11-13T20:14') 37 mins
-      li.other
-        .avatar
-          img(src='http://lorempixel.com/600/600/people/1')
-        .messages
-          p that mongodb thing looks good, huh?
-          p
-            | tiny master db, and huge document store
+      //- li.(other || self)
+      //-   .avatar
+      //-     img(src='http://lorempixel.com/600/600/people/2')
+      //-   .messages
+      //-     p That makes sense.
+      //-     p It's a pretty small airport.
+      //-     time(datetime='2009-11-13T20:14') 37 mins
     
     section#text_field.grey.lighten-2
       div.row.no_margin
         .input-field.col.s12.no_margin
-          textarea.no_margin.white.materialize-textarea.z-depth-3(name="message", placeholder="Message ...")
+          textarea#message_field.no_margin.white.materialize-textarea.z-depth-3(name="message", placeholder="Message ...")
