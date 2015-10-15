@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var flash = require('express-flash');
+var _ = require("underscore");
 var app = express();
 
 // view engine setup

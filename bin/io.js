@@ -25,11 +25,7 @@ io.on('connection', function(socket){
     //io.to(clients[0]).emit('turn', '');
   }
 
-  socket.on('join', function(msg){
-    msg = ent.encode(msg);
-    io.emit('join', msg);
-  });
-
+  // When client send a chat message
   socket.on('message', function (data) {
     data.message = ent.encode(data.message);
     socket.broadcast.emit('message', data);
