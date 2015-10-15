@@ -4,7 +4,7 @@ jQuery(document).ready(function($) {
   init_io()
 
   // Set client color. This is required to identify client on chat box
-  document.client_color = randomize_color();
+  document.color = randomize_color();
 
   $('#hide_chat').click(function(event) {
     event.preventDefault();
@@ -22,8 +22,8 @@ jQuery(document).ready(function($) {
       event.preventDefault();
       var message = $.trim($(this).val());
       if (message.length > 0){
-        socket.emit('message', { message: message, img: document.img_url });
-        generateBox({ message: message, img: document.img_url }, 'self');
+        socket.emit('message', { message: message, color: document.color });
+        generateBox({ message: message, color: document.color }, 'self');
         $(this).val('');
       }
     }
@@ -33,8 +33,10 @@ jQuery(document).ready(function($) {
     var discussion = $('.discussion');
     var li = $('<li></li>').addClass(kclass);
     var content = simpleFormat(data.message);
-    var img = $('<img />').attr('src', data.img);
-    var avatar = $('<div></div>').addClass('avatar').append(img);
+    // var img = $('<img />').attr('src', data.img);
+    var aColor = $('<div></div>').addClass('img').css('backgroundColor', data.color);
+    console.log(data.color);
+    var avatar = $('<div></div>').addClass('avatar').append(aColor);
     var dt = $('<time></time>').attr('datetime', '2009-11-13T20:14').text('17 mins');
     var msg = $('<div></div>').addClass('messages').append(content);
 
@@ -74,7 +76,7 @@ jQuery(document).ready(function($) {
 
   function randomize_color() {
     var rd = function() {
-      return Math.floor((256-199) * Math.random() + 200)
+      return Math.floor((256-199) * Math.random() + 80)
     }
 
     var CRed   = rd();
