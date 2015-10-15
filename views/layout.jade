@@ -14,3 +14,9 @@ html(lang='FR', class= kclass ? kclass.html : null)
     block bottom
       script(type="text/javascript" src="/javascripts/jquery-2.1.4.min.js")
       script(type="text/javascript" src="/javascripts/materialize.min.js")
+
+    script.
+      window.session= !{JSON.stringify(session)};
+      window.session.get = function (key) {
+        return eval("session." + key);
+      };

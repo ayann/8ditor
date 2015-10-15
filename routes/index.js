@@ -29,7 +29,7 @@ router.get('/editor', function(req, res, next) {
   kclass = null;
   pseudo = req.session.pseudo;
   if (pseudo) {
-    res.render('editor/index', { title: '8ditor | Editor' });
+    res.render('editor/index', { title: '8ditor | Editor', session: req.session});
   }else{
     req.flash('error', 'Merci de vous authentifier!');
     res.redirect('/');

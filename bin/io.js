@@ -27,7 +27,6 @@ io.on('connection', function(socket){
 
   // When client send a chat message
   socket.on('message', function (data) {
-    // data.message = ent.encode(data.message);
     socket.broadcast.emit('message', data);
   });
 

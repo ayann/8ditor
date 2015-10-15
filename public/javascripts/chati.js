@@ -56,24 +56,6 @@ jQuery(document).ready(function($) {
     return str;
   }
 
-  function init_io() {
-    socket = io.connect(window.location.origin);
-
-    socket.on('connect', function(data) {
-      sessionId = socket.io.engine.id;
-      console.log('Connected ' + sessionId);
-      socket.emit('join', {id: sessionId, name: 'tototo' });
-    });
-
-    socket.on('join', function(pseudo) {
-      console.log('A Client Joined the room');
-    })
-
-    socket.on('message', function(data) {
-      generateBox(data, 'other');
-    })
-  }
-
   function randomize_color() {
     var rd = function() {
       return Math.floor((256-199) * Math.random() + 80)
@@ -83,5 +65,27 @@ jQuery(document).ready(function($) {
     var CGreen = rd();
     var CBlue  = rd();
     return 'rgb(' + CRed + ',' + CGreen + ',' + CBlue + ')';
+  }
+
+  function init_io() {
+    socket = io.connect(window.location.origin);
+
+    socket.on('connect', function(data) {
+      sessionId = socket.io.engine.id;
+      socket.emit('newClient', {id: sessionId, name: window.session.get('pseudo')});
+    });
+
+    socket.on('join', function(participants) {
+      for (var i = 0; i < participants.length; i++)
+        console.log('Client ' + participants[i].name + ' -> id: ' + participants[i].id + ' Joined the room');
+    })
+
+    socket.on('message', function(data) {
+      generateBox(data, 'other');
+    })
+
+    socket.on('logout', function(data) {
+      console.log("Client :" + data.id + "disconnect");
+    })
   }
 })
