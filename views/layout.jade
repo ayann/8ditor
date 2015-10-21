@@ -16,7 +16,10 @@ html(lang='FR', class= kclass ? kclass.html : null)
       script(type="text/javascript" src="/javascripts/materialize.min.js")
 
     script.
-      window.session= !{JSON.stringify(session)};
-      window.session.get = function (key) {
-        return eval("session." + key);
-      };
+      var sess = "#{session}"
+      if (sess != '') {
+        window.session = !{JSON.stringify(session)}
+        window.session.get = function (key) {
+          return eval("session." + key);
+        };
+      }

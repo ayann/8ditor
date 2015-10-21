@@ -75,10 +75,15 @@ jQuery(document).ready(function($) {
       socket.emit('newClient', {id: sessionId, name: window.session.get('pseudo')});
     });
 
+    socket.on('userDisconnected', function(data) {
+      console.log('user disconnect');
+    });
+
     socket.on('join', function(participants) {
       for (var i = 0; i < participants.length; i++)
         console.log('Client ' + participants[i].name + ' -> id: ' + participants[i].id + ' Joined the room');
     })
+
 
     socket.on('message', function(data) {
       generateBox(data, 'other');
