@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+/*jQuery(document).ready(function($) {
   var n = Math.floor(Math.random() * 10) + 1;
   document.img_url = "http://lorempixel.com/600/600/people/"+n
 
@@ -12,86 +12,35 @@ jQuery(document).ready(function($) {
     console.log('A Client Joined the room');
   })
 
-    var update = true;
-    socket.on('turn', function() {
-    if(update){
-     var data = editor.session.getValue().split('\n');
-      console.log("client sent updates "+data);
-      if(data.length != 0){
-          socket.emit('clientData',data);
-        }
 
-    update = false;
-  }else{
-    console.log("It's my turn but there is not updates!");
-  }
+    socket.on('turn', function() {
+
+    var data = editor.session.getValue().split('\n');
+      data = $.grep(data,function(n){ return(n) });
+
+    if(data.length != 0){
+        console.log(data);
+        socket.emit('clientData',data);
+      }
     socket.emit('next', 'try next');
   });
 
-// i touched textarea means there is updates
-$("#editor").keyup(function(evt) {
-  update = true;
-});
   var myData = [];
 
  socket.on('refreshClient', function(data) {
-editor.$blockScrolling = Infinity;
+
   myData = editor.session.getValue().split('\n');
-  var empty = myData.indexOf("");
-  myData.splice(empty);
-  console.log(myData);
   //sauvegarder le cursor
   var cursor=  editor.selection.getCursor();
-
-  //data = $.grep(data,function(n){ return(n) });
-  console.log("data send to me "+data);
-  console.log("my data "+myData);
+ console.log(data);
+  console.log(myData);
 
     for(i=0;i<data.length;i++){
-    //  console.log(" i = "+i);
-    //  console.log(" data[i] = "+data[i]);
-    //  console.log(" myData[i] = "+myData[i]);
-
-    //we remove the last element be cause ace editor closes automatically ( and { and [
-      if(myData[i] != undefined){
-        var index = myData[i].indexOf("){");
-        if(index){
-          myData[i] =   myData[i].substring(0, myData.length - 1);
-          myData[i] =   myData[i].substring(0, myData.length - 1);
-        }
-
-        var index = myData[i].indexOf(")");
-        if(index){
-          myData[i] =   myData[i].substring(0, myData.length - 1);
-
-        }
-
-        var index = myData[i].indexOf("]");
-        if(index){
-          myData[i] =   myData[i].substring(0, myData.length - 1);
-
-        }
-
-        var index = myData[i].indexOf("'");
-        if(index){
-          myData[i] =   myData[i].substring(0, myData.length - 1);
-
-        }
-        var index = myData[i].indexOf("\"");
-        if(index){
-          myData[i] =   myData[i].substring(0, myData.length - 1);
-
-        }
-      }
-
-
 
       if(data[i].indexOf(myData[i]) > -1 || myData[i] == undefined){
         myData[i] = data[i];
       }else{
-        if(data[i].trim() != "" && myData.indexOf("<<<") == -1 && myData.indexOf(">>>") == -1 && myData.indexOf("vs") == -1){
-            myData[i] = "<<<   "+myData[i]+" >>>" + "vs <<<"+data[i] + ">>>";
-        }
+          myData[i] = "<<<conflict   "+myData[i]+" >>>"
       }
     }
 
@@ -102,13 +51,14 @@ editor.$blockScrolling = Infinity;
   }
   //console.log("content" +content);
   //console.log(cursor);
-  //bloquer l'écriture quand on m'envoie une mise a jour
 
+  //bloquer l'écriture quand on m'envoie une mise a jour
   editor.setReadOnly(true);
   editor.session.setValue(content);
-  editor.selection.moveCursorTo(cursor.row,cursor.column,false);
   editor.setReadOnly(false);
   //mettre le curseur la ou il été
+  editor.selection.moveCursorTo(cursor.row,cursor.column,false);
+
 });
 
 /*
@@ -135,13 +85,15 @@ editor.$blockScrolling = Infinity;
   	 editor.session.setValue(content);
   })
 */
-
+/*
   socket.on('message', function(data) {
     generateBox(data, 'other');
   })
 
-//  myRelease = 0;
-//  var busy = 0;
+  myRelease = 0;
+
+
+  var busy = 0;
 //  $("#editor").keyup(function(evt) {
 //	myData = editor.session.getValue().split('\n');
     //  console.log(editor.selection.getCursor());
@@ -205,3 +157,43 @@ editor.$blockScrolling = Infinity;
     return str;
   }
 })
+
+function doGetCaretPosition (ctrl) {
+
+	var CaretPos = 0;
+	// IE Support
+	if (document.selection) {
+
+		ctrl.focus ();
+		var Sel = document.selection.createRange ();
+
+		Sel.moveStart ('character', -ctrl.value.length);
+
+		CaretPos = Sel.text.length;
+	}
+	// Firefox support
+	else if (ctrl.selectionStart || ctrl.selectionStart == '0')
+		CaretPos = ctrl.selectionStart;
+
+	return (CaretPos);
+
+}
+
+
+function setCaretPosition(ctrl, pos)
+{
+
+	if(ctrl.setSelectionRange)
+	{
+		ctrl.focus();
+		ctrl.setSelectionRange(pos,pos);
+	}
+	else if (ctrl.createTextRange) {
+		var range = ctrl.createTextRange();
+		range.collapse(true);
+		range.moveEnd('character', pos);
+		range.moveStart('character', pos);
+		range.select();
+	}
+}
+*/
