@@ -3,6 +3,7 @@ var ent = require('ent');
 var clients = [];
 var clientsIP = [];
 var clientTurn = 1;
+var synchronized = [];
 
 io.on('connection', function(socket){
   // New client
@@ -12,16 +13,16 @@ io.on('connection', function(socket){
     clientsIP.push(socket.handshake.address);
     io.to(clients[0]).emit('turn', '');
     clientTurn++;
-    console.log('Client connected... socketId = '+ socket.id);
-    console.log("clients id : "+clients);
-    console.log("clients ip : "+clientsIP);
-    console.log("send invitation to "+clients[0]);
-  }else{
+  //   console.log('Client connected... socketId = '+ socket.id);
+  //   console.log("clients id : "+clients);
+  //   console.log("clients ip : "+clientsIP);
+  //   console.log("send invitation to "+clients[0]);
+   }else{
     var indexClient = clientsIP.indexOf(socket.handshake.address);
     clients[indexClient] = socket.id;
-    console.log("socket id " + socket.id);
-    console.log("refresh client id " + clients);
-    io.to(clients[0]).emit('turn', '');
+  //  console.log("socket id " + socket.id);
+  //  console.log("refresh client id " + clients);
+    //io.to(clients[0]).emit('turn', '');
   }
 
   socket.on('join', function(msg){
@@ -46,63 +47,35 @@ io.on('connection', function(socket){
       console.log("send invitation to "+clients[i]);
     //  console.log('i '+clients[i]);
       clientTurn++;
-    },100);
+    },1000);
   });
 
   socket.on('data', function (data) {
     socket.broadcast.emit('data', data);
   });
 
-  var synchronized = [];
+
   socket.on('clientData', function (clientData) {
     console.log("server's data  "+synchronized);
-    console.log("server received "+clientData);
+    console.log("server received "+clientData.rowContent);
+    console.log(synchronized.length);
 
-
-    if(synchronized.length == 0){
-      synchronized = clientData;
-    }else{
-      for(i=0;i<clientData.length;i++){
-
-        //we remove the last element be cause ace editor closes automatically ( and { and [ and ' and "
-        if(synchronized[i] != undefined){
-          var index = synchronized[i].indexOf("){");
-          if(index){
-            synchronized[i].slice(index,1)
-          }
-
-          var index = synchronized[i].indexOf(")");
-          if(index){
-            synchronized[i].slice(index,1)
-          }
-
-          var index = synchronized[i].indexOf("'");
-          if(index && index==synchronized.length-1){
-            synchronized[i].slice(index,1)
-          }
-
-          var index = synchronized[i].indexOf("\"");
-
-          if(index && index==synchronized.length-1){
-            synchronized[i].slice(index,1)
-          }
-
-          var index = synchronized[i].indexOf("]");
-
-          if(index && index==synchronized.length-1){
-            synchronized[i].slice(index,1)
-          }
-          var tmp  = synchronized[i].substring(0, synchronized[i].length - 1);
-
-        }
-
-        if(clientData[i].indexOf(tmp) > -1 || synchronized[i] == undefined){
-          synchronized[i] = clientData[i];
-        }
-      }
+    if(synchronized[clientData.rowNB] == undefined){
+      synchronized[clientData.rowNB] = clientData.rowContent;
+      console.log("line not exist");
+      console.log(clientData.rowContent);
+      console.log(clientData.rowNB);
     }
-    console.log("sever sent "+synchronized);
-    socket.broadcast.emit('refreshClient', synchronized);
+    else{
+      console.log("synchronized before : "+synchronized);
+      synchronized[clientData.rowNB] = clientData.rowContent;
+      console.log("line exist");
+      console.log(clientData.rowContent);
+      console.log(clientData.rowNB);
+      console.log('synchronized[clientData.rowNB] = ' +synchronized[clientData.rowNB]);
+    }
+    console.log("server sent "+synchronized);
+  socket.broadcast.emit('refreshClient', synchronized);
   });
 /*
    socket.on ( "disconnect" , function ()

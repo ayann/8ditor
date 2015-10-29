@@ -1,4 +1,6 @@
+
 jQuery(document).ready(function($) {
+
   var n = Math.floor(Math.random() * 10) + 1;
   document.img_url = "http://lorempixel.com/600/600/people/"+n
 
@@ -13,47 +15,42 @@ jQuery(document).ready(function($) {
   })
 
     var update = true;
-    socket.on('turn', function() {
-    if(update){
-     var data = editor.session.getValue().split('\n');
-      console.log("client sent updates "+data);
-      if(data.length != 0){
-          socket.emit('clientData',data);
-        }
-
-    update = false;
-  }else{
-    console.log("It's my turn but there is not updates!");
-  }
-    socket.emit('next', 'try next');
-  });
+  //   socket.on('turn', function() {
+  //   if(update){
+  //    var data = editor.session.getValue().split('\n');
+  //     console.log("client sent updates "+data);
+  //     if(data.length != 0){
+  //         socket.emit('clientData',data);
+  //       }
+  //
+  //   update = false;
+  // }else{
+  //   console.log("It's my turn but there is not updates!");
+  // }
+  //   socket.emit('next', 'try next');
+  // });
 
 // i touched textarea means there is updates
 $("#editor").keyup(function(evt) {
-  update = true;
+  var rowNB = editor.selection.getCursor().row;
+  var myData = editor.session.getValue().split('\n');
+  var dataToSend = myData[rowNB];
+  var data = new Object();
+  data.rowContent = dataToSend;
+  data.rowNB = rowNB;
+  socket.emit('clientData',data);
+  console.log("client sent "+data.rowContent);
+  //update = true;
 });
   var myData = [];
 
  socket.on('refreshClient', function(data) {
-editor.$blockScrolling = Infinity;
-  myData = editor.session.getValue().split('\n');
-  var empty = myData.indexOf("");
-  myData.splice(empty);
-  console.log(myData);
-  //sauvegarder le cursor
-  var cursor=  editor.selection.getCursor();
-
-  //data = $.grep(data,function(n){ return(n) });
+  editor.setReadOnly(true);
   console.log("data send to me "+data);
-  console.log("my data "+myData);
 
     for(i=0;i<data.length;i++){
-    //  console.log(" i = "+i);
-    //  console.log(" data[i] = "+data[i]);
-    //  console.log(" myData[i] = "+myData[i]);
 
-    //we remove the last element be cause ace editor closes automatically ( and { and [
-      if(myData[i] != undefined){
+       if(myData[i] != undefined){
         var index = myData[i].indexOf("){");
         if(index){
           myData[i] =   myData[i].substring(0, myData.length - 1);
@@ -89,7 +86,7 @@ editor.$blockScrolling = Infinity;
       if(data[i].indexOf(myData[i]) > -1 || myData[i] == undefined){
         myData[i] = data[i];
       }else{
-        if(data[i].trim() != "" && myData.indexOf("<<<") == -1 && myData.indexOf(">>>") == -1 && myData.indexOf("vs") == -1){
+        if(myData.indexOf("<<<") == -1 && myData.indexOf(">>>") == -1 && myData.indexOf("vs") == -1){
             myData[i] = "<<<   "+myData[i]+" >>>" + "vs <<<"+data[i] + ">>>";
         }
       }
@@ -97,63 +94,18 @@ editor.$blockScrolling = Infinity;
 
   var content ="";
      for(i=0;i<myData.length;i++){
-    //  console.log(myData.length);
       content+=myData[i]+"\n";
   }
-  //console.log("content" +content);
-  //console.log(cursor);
-  //bloquer l'écriture quand on m'envoie une mise a jour
-
-  editor.setReadOnly(true);
+  var cursor=  editor.selection.getCursor();
   editor.session.setValue(content);
   editor.selection.moveCursorTo(cursor.row,cursor.column,false);
   editor.setReadOnly(false);
-  //mettre le curseur la ou il été
+
 });
-
-/*
-   socket.on('data', function(data) {
-  //  console.log("client received data "+myData.length);
-  myData = $.grep(myData,function(n){ return(n) });
-  data.content =  $.grep(data.content,function(n){ return(n) });
-  console.log(myData);
-    if(myData.length == 0){
-      myData = data.content;
-    }else{
-      for(i=0;i<data.content.length;i++){
-        if(data.content[i].indexOf(myData[i]) > -1){
-          myData[i] = data.content[i];
-        }
-      }
-    }
-    var content ="";
-       for(i=0;i<myData.length;i++){
-        console.log(myData.length);
-        content+=myData[i]+"\n";
-    }
-
-  	 editor.session.setValue(content);
-  })
-*/
-
-  socket.on('message', function(data) {
+   socket.on('message', function(data) {
     generateBox(data, 'other');
   })
 
-//  myRelease = 0;
-//  var busy = 0;
-//  $("#editor").keyup(function(evt) {
-//	myData = editor.session.getValue().split('\n');
-    //  console.log(editor.selection.getCursor());
-    //console.log("-");
-    //  var data = new Object();
-    //  data.content=content;
-    //  data.myRelease=myRelease;
-    //	socket.emit('send',  1);
-  	//	socket.emit('data',  data);
-    //  socket.emit('send',  0);
-  //  myRelease++;
-	//});
 
   $('#hide_chat').click(function(event) {
     event.preventDefault();
