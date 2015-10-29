@@ -85,11 +85,12 @@ $("#editor").keyup(function(evt) {
 
       if(data[i].indexOf(myData[i]) > -1 || myData[i] == undefined){
         myData[i] = data[i];
-      }else{
-        if(myData.indexOf("<<<") == -1 && myData.indexOf(">>>") == -1 && myData.indexOf("vs") == -1){
-            myData[i] = "<<<   "+myData[i]+" >>>" + "vs <<<"+data[i] + ">>>";
-        }
       }
+      // else{
+      //   if(myData.indexOf("<<<") == -1 && myData.indexOf(">>>") == -1 && myData.indexOf("vs") == -1){
+      //       myData[i] = "<<<   "+myData[i]+" >>>" + "vs <<<"+data[i] + ">>>";
+      //   }
+      // }
     }
 
   var content ="";
