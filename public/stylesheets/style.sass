@@ -13,6 +13,7 @@ body.bi
 
 body
   height: 100%
+  overflow: hidden
 
   div.overlay
     width: 100%
@@ -39,3 +40,27 @@ body
     padding: 20px
     background-color: #fff
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23)
+
+  #sidebar_button, #close_sidebar
+    font-size: 30px
+    cursor: pointer
+    &:hover
+      color: #00bfa5
+
+  #sidebar_button
+    z-index: 10
+    position: fixed
+    top: 20px
+    right: 10px
+    color: white
+
+  .sidebar
+    width: 300px
+    height: calc(100% - 40px)
+    background-color: #fff
+    position: absolute
+    margin-right: -300px
+    top: 0
+    right: 0
+    z-index: 11
+    // display: none
