@@ -14,7 +14,6 @@ $(document).ready(function() {
     });
 
     $('select#theme').html(items.join( "" ))
-    $('select').material_select();
   });
 
   $.getJSON( "/javascripts/language.json", function( data ) {

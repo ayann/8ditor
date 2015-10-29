@@ -1,0 +1,30 @@
+i#sidebar_button.material-icons reorder
+div.sidebar.z-depth-3
+  p
+    //- i#close_sidebar.left.material-icons &nbsp; exit_to_app
+    i#close_sidebar.right.material-icons clear &nbsp;
+    br
+    br
+    .input-field.col.s12
+      select#language(name='language')
+      label Choisir un langage 
+
+    .input-field.col.s12
+      select#theme(name='theme')
+        option(value="1") JavaScript
+        option(value="2") Ruby
+        option(value="3") Java
+        option(value="4") C++
+      label Changer de theme
+
+    .input-field.col.s12
+      p.range-field
+        input#police(type="range", min="12", max="20", name='police')
+      label Taille police
+      
+    br
+    br
+    .input-field.col.s12.center
+      a.waves-effect.waves-light.btn#save_btn
+        i.material-icons.right save
+        | Télécharger
